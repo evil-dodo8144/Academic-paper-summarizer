@@ -1,0 +1,31 @@
+academic_summarizer/
+│
+├── manage.py
+├── requirements.txt
+├── .env
+│
+├── academic_summarizer/
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+│
+├── api/
+│   ├── migrations/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── serializers.py
+│   ├── views.py
+│   ├── urls.py
+│
+├── rag/
+│   ├── pdf_loader.py
+│   ├── chunker.py
+│   ├── compressor.py
+│   ├── embeddings.py
+│   ├── vector_store.py
+│   └── retriever.py
+│
+└── llm/
+    └── scaledown_client.py
