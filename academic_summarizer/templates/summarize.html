@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summarize a paper — Academic Paper Summarizer</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(145deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            color: #e2e8f0;
+            padding: 2rem;
+        }
+        .container { max-width: 640px; margin: 0 auto; }
+        a.back {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+        a.back:hover { color: #f8fafc; }
+        h1 { font-size: 1.5rem; margin: 0 0 1.5rem; color: #f8fafc; }
+        .card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        label { display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem; }
+        input[type="file"] {
+            width: 100%;
+            padding: 0.5rem;
+            background: #0f172a;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            border-radius: 8px;
+            color: #e2e8f0;
+        }
+        textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 0.75rem;
+            background: #0f172a;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            border-radius: 8px;
+            color: #e2e8f0;
+            font-family: inherit;
+            resize: vertical;
+        }
+        button {
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: #3b82f6;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        button:hover { background: #2563eb; }
+        button:disabled { opacity: 0.6; cursor: not-allowed; }
+        .summary-box {
+            background: #0f172a;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-top: 1rem;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+        .error { color: #f87171; margin-top: 1rem; }
+        .success { color: #34d399; font-weight: 600; margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'home' %}" class="back">← Back to home</a>
+        <h1>Summarize a paper</h1>
+
+        <form method="post" enctype="multipart/form-data" id="form">
+            {% csrf_token %}
+            <div class="card">
+                <label for="file">PDF file</label>
+                <input type="file" name="file" id="file" accept=".pdf" required>
+            </div>
+            <div class="card">
+                <label for="query">Query (optional)</label>
+                <textarea name="query" id="query" placeholder="e.g. Summarize this paper / What is the main contribution?">Summarize this paper</textarea>
+            </div>
+            <button type="submit" id="submit">Summarize</button>
+        </form>
+
+        {% if summary %}
+            <div class="card" style="margin-top: 1.5rem;">
+                <p class="success">Summary</p>
+                <div class="summary-box">{{ summary }}</div>
+            </div>
+        {% endif %}
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+    <script>
+        document.getElementById('form').addEventListener('submit', function() {
+            document.getElementById('submit').disabled = true;
+            document.getElementById('submit').textContent = 'Processing…';
+        });
+    </script>
+</body>
+</html>

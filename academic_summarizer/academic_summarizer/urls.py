@@ -17,7 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from academic_summarizer.views import HomeView, SummarizeToolView
+
 urlpatterns = [
+    path('', HomeView.as_view(), name='home'),
+    path('summarize/', SummarizeToolView.as_view(), name='summarize'),
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
 ]
