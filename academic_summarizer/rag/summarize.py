@@ -25,7 +25,12 @@ def summarize_pdf(file_path: str, query: str = "Summarize this paper") -> str:
     embeddings = get_embeddings()
     vectorstore = build_vectorstore(compressed, embeddings)
     retriever = get_retriever(vectorstore)
-    docs = retriever.get_relevant_documents(query)
+    # LangChain retrievers in newer versions are Runnables (use .invoke);
+    # older versions exposed .get_relevant_documents. Support both.
+    if hasattr(retriever, "get_relevant_documents"):
+        docs = retriever.get_relevant_documents(query)
+    else:
+        docs = retriever.invoke(query)
     if not docs:
         return "No relevant sections were retrieved. The paper may be too short or the query may not match the content."
     context = "\n\n---\n\n".join(d.page_content for d in docs)
