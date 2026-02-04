@@ -7,9 +7,26 @@ from rag.embeddings import get_embeddings
 from rag.vector_store import build_vectorstore
 from rag.retriever import get_retriever
 from llm.scaledown_client import ScaleDownLLM
+from llm.scaledown_compress import compress_text as scaledown_compress_text
 
 
 ACADEMIC_SUMMARY_INSTRUCTION = """You are summarizing an academic research paper. Preserve technical accuracy: keep key terms, methods, and findings exact. Structure your response clearly (e.g. objective, methods, results, conclusions). Do not invent or add information not present in the excerpts."""
+
+
+def compress_pdf(file_path: str, context: str | None = None) -> str:
+    """
+    Compress the full text of a PDF using the ScaleDown compress API.
+
+    This is useful when you want a size-reduced representation of the paper
+    (for storage or for sending to other LLMs) instead of a natural-language
+    summary.
+    """
+    text = load_pdf(file_path)
+    if not text or not text.strip():
+        return "No text could be extracted from the PDF."
+
+    context_value = context or "Full academic paper text to compress."
+    return scaledown_compress_text(text, context=context_value)
 
 
 def summarize_pdf(file_path: str, query: str = "Summarize this paper") -> str:
