@@ -48,6 +48,7 @@ copy .env.example .env   # Windows
 ### 4. For installing sentence transformer run: 
         
 `pip install sentence-transformers`
+
 In `.env` set:
 
 - **`SCALEDOWN_BASE_URL`** – For **chat** (summarization), use an OpenAI-compatible endpoint, e.g. `https://api.openai.com/v1`.
