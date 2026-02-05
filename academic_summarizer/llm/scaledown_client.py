@@ -10,7 +10,7 @@ _INITIAL_BACKOFF = 2.0
 
 
 class ScaleDownLLM:
-    def __init__(self, model="gpt-4o-mini"):
+    def __init__(self, model="gpt-3.5-mini"):
         # Use ScaleDown if configured, otherwise fall back to Groq.
         scaledown_key = (os.getenv("SCALEDOWN_API_KEY") or "").strip()
         groq_key = (os.getenv("GROQ_API_KEY") or "").strip()
@@ -68,7 +68,12 @@ class ScaleDownLLM:
             if use_x_key:
                 headers["x-api-key"] = self.api_key
             else:
-                headers["Authorization"] = f"Bearer {self.api_key}"
+                # headers["Authorization"] = f"Bearer {self.api_key}"
+                headers = {
+    "Authorization": f"Bearer {self.api_key}",  
+    "Content-Type": "application/json"
+}
+
             return requests.post(url, headers=headers, json=payload)
 
         response = do_request(use_x_api_key)
