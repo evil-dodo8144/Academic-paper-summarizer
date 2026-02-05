@@ -82,12 +82,27 @@ python manage.py runserver
 
 ```
 academic_summarizer/
+│
 ├── manage.py
-├── .env                    # Your keys
-├── .env.example
-├── academic_summarizer/    # Django project
-├── api/                    # REST endpoints
-├── rag/                    # PDF → chunk → compress → embed → retrieve → summarize
+├── requirements.txt
+├── .env.local                       # Your keys
+│
+├── academic_summarizer/             # Django project
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+│
+├── api/                               # REST endpoints
+│   ├── migrations/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── serializers.py
+│   ├── views.py
+│   ├── urls.py
+│
+├── rag/                               # PDF → chunk → compress → embed → retrieve → summarize
 │   ├── pdf_loader.py
 │   ├── chunker.py
 │   ├── compressor.py
@@ -95,8 +110,14 @@ academic_summarizer/
 │   ├── vector_store.py
 │   ├── retriever.py
 │   └── summarize.py
-├── llm/                    # Chat (summarization) and compress clients
-└── templates/
+├── templates/
+│   ├── summarize.html
+│   └── home.html
+│
+└── llm/                                # Chat (summarization) and compress clients
+    ├── scaledown_client.py
+    └── scaledown_compress.py
+
 ```
 
 ## License
