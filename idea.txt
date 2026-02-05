@@ -25,10 +25,15 @@ academic_summarizer/
 │   ├── compressor.py
 │   ├── embeddings.py
 │   ├── vector_store.py
-│   └── retriever.py
+│   ├── retriever.py
+│   └── summarize.py
+├── templates/
+│   ├── summarize.html
+│   └── home.html
 │
 └── llm/
-    └── scaledown_client.py
+    ├── scaledown_client.py
+    └── scaledown_compress.py
 
 
 
@@ -41,7 +46,7 @@ python manage.py migrate
 python manage.py runserver
 
 
-You already have:
+we already have:
 pdf_loader.load_pdf → extracts text from PDF.
 chunker.chunk_text → splits text into chunks.
 compressor.compress_chunks → uses scaledown_compress.compress_text only if SCALEDOWN_COMPRESS_URL is set, otherwise returns original chunks.
