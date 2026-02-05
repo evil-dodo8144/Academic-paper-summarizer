@@ -10,7 +10,7 @@ _INITIAL_BACKOFF = 2.0
 
 
 class ScaleDownLLM:
-    def __init__(self, model="gpt-3.5-mini"):
+    def __init__(self, model="gpt-4o-mini"):
         # Use ScaleDown if configured, otherwise fall back to Groq.
         scaledown_key = (os.getenv("SCALEDOWN_API_KEY") or "").strip()
         groq_key = (os.getenv("GROQ_API_KEY") or "").strip()
