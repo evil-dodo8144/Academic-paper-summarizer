@@ -24,5 +24,6 @@ pymupdf>=1.23.0
 # python-dotenv
 python-dotenv
 
-#for delployment 
+
+# for delployment 
 gunicorn
