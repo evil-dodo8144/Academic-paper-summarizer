@@ -83,7 +83,7 @@ python manage.py runserver
 ```
 academic_summarizer/
 ├── manage.py
-├── .env                    # Your keys (not committed)
+├── .env                    # Your keys
 ├── .env.example
 ├── academic_summarizer/    # Django project
 ├── api/                    # REST endpoints
